@@ -14,10 +14,9 @@ Emotions = {0: "neutral",
 
 with open('dtree_pkl', 'rb') as f:
     dtree = pickle.load(f)
-with open('lgbm_pkl', 'rb') as f:
-    LGBM = pickle.load(f)
 with open('mlp_pkl', 'rb') as f:
     MLP = pickle.load(f)
+LGBM = lightgbm.Booster(model_file='lgbm.txt')
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT_DIR, 'data')
 OUT_DIR = os.path.join(ROOT_DIR, 'output/')

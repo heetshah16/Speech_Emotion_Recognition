@@ -77,19 +77,25 @@ btn = st.button("PREDICT")
 if btn:
     if type_select == 'no':
         model = Models_matrix[select]
-        #try:
-        data, sample_rate = librosa.load(audio, res_type='kaiser_fast')
-        data = extract.extract_features(data, sample_rate)
-        output = dtree.predict(data)
-        st.text(Emotions[output[0]])
-        #except:
-            #st.write('Error')
+        try:
+            data, sample_rate = librosa.load(audio, res_type='kaiser_fast')
+            data = extract.extract_features(data, sample_rate)
+            output = dtree.predict(data)
+            if model == LGBM:
+                st.text(Emotions[np.argmax(output)])
+            else:
+                st.text(Emotions[output[0]])
+        except:
+            st.write('Error')
     if type_select == 'yes':
         model = Models_matrix[select]
-        #try:
-        data, sample_rate = librosa.load(WAVE_OUTPUT_FILE, res_type='kaiser_fast')
-        data = extract.extract_features(data, sample_rate)
-        output = model.predict(data)
-        st.text(Emotions[output[0]])
-        #except:
-            #st.write('Error')
+        try:
+            data, sample_rate = librosa.load(WAVE_OUTPUT_FILE, res_type='kaiser_fast')
+            data = extract.extract_features(data, sample_rate)
+            output = model.predict(data)
+            if model == LGBM:
+                st.text(Emotions[np.argmax(output)])
+            else:
+                st.text(Emotions[output[0]])
+        except:
+            st.write('Error')
